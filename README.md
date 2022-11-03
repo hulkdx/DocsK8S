@@ -142,3 +142,5 @@ spec:
 - (2): Create a connection between deployment (2) and pod (3) 
 - (1): This is the deployment label and will be used by the service selector (4) 
 - (4): connect to the deployment (1) also to the pod (3)  
+
+## [01 - Example](01-example/NOTE.md)

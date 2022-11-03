@@ -122,7 +122,7 @@ spec:
             - containerPort: 8080 
 ```
 
-#### Service
+#### Internal Service
 ```yaml
 apiVersion: v1 
 kind: Service  
@@ -142,5 +142,40 @@ spec:
 - (2): Create a connection between deployment (2) and pod (3) 
 - (1): This is the deployment label and will be used by the service selector (4) 
 - (4): connect to the deployment (1) also to the pod (3)  
+#### Secret
+```yaml
+apiVersion: v1
+kind: Secret 
+metadata: 
+  name: my-secret
+type: Opaque 
+data:
+  username: BASE_64_VALUE
+  password: BASE_64_VALUE
+```
+
+#### External Service
+```yaml
+apiVersion: v1 
+kind: Service  
+metadata:  
+  name: my-service  
+spec:  
+  selector: 
+    app: my-app 
+  # !! Make it an external service
+  type: LoadBalancer
+  ports: 
+    - protocol: TCP 
+      port: 80 
+      targetPort: 8080
+      # !! Make it an external service
+      # port in the browser to access the service
+      # it has a range 30000-32000
+      nodePort: 30000
+```
+- if the command `kubectl get service` you can see the external ip address
+- In minikube this is not working and showing  pending
+  - In minikube run `minikube service [service name]`
 
 ## [01 - Example](01-example/NOTE.md)

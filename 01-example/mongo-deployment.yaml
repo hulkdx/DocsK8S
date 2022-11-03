@@ -21,6 +21,24 @@ spec:
           - containerPort: 27017
           env:
           - name: MONGO_INITDB_ROOT_USERNAME
-            value: 
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-username
           - name: MONGO_INITDB_ROOT_PASSWORD
-            value: 
+            valueFrom: 
+              secretKeyRef:
+                name: mongodb-secret
+                key: mongo-root-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017

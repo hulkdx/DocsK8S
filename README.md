@@ -63,8 +63,7 @@ a storage for k8s itself
 - To test k8s on local machine 
 - A node cluseter run on virtual box
 
-### kubectl
-#### commands
+### kubectl commands
 ```sh
 kubectl get nodes 
 kubectl get pod 
@@ -86,3 +85,60 @@ kubectl exec –it [pod name] -- bin/bash
  
 kubectl apply –f config_filename 
 ```
+
+### Config file
+
+#### Deployment
+```yaml
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: my-app 
+  # (1) explained below 
+  labels: 
+    app: my-app 
+# spec of the deployment 
+spec: 
+  # number of replicas 
+  replicas: 1 
+  # (2) explained below 
+  selector: 
+    matchLabels: 
+      app: my-app 
+  # pods config
+  template: 
+    metadata: 
+      labels: 
+        # (3) explained below 
+        app: my-app 
+    # spec of pods 
+    spec: 
+      containers: 
+        - name: my-app 
+          # image of the pod to use 
+          image: nginx:1.16 
+          # bind that image to this port 
+          ports: 
+            - containerPort: 8080 
+```
+
+#### Service
+```yaml
+apiVersion: v1 
+kind: Service  
+metadata:  
+  name: my-service  
+spec:  
+  selector: 
+    # (4) explained below:  
+    app: my-app 
+  ports: 
+    - protocol: TCP 
+      port: 80 
+      targetPort: 8080 
+```
+#### Explanation of config file
+- (3): A pod has a label `app: nginx` (it can be any other key-value pair), 
+- (2): Create a connection between deployment (2) and pod (3) 
+- (1): This is the deployment label and will be used by the service selector (4) 
+- (4): connect to the deployment (1) also to the pod (3)  

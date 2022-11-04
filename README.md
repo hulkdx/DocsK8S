@@ -24,9 +24,7 @@ Just some configuration
 config for secrets 
 
 ### Volumes
-It’s a storage.
-
-If db pod get restarted, the data will be restarted as well, but with volumes this won't happen. 
+It’s a storage, if db pod get restarted, the data will be restarted as well, but with volumes this won't happen. 
 
 ### Deployment
 A blueprint for pods, which specifies how many replica of a ped is needed.
@@ -183,4 +181,25 @@ spec:
 ## [01 - Example](01-example/NOTE.md)
 
 ## Namespace
-Organise your resources in a namespace.
+Organise your resources in a namespace
+
+### out of box namespaces
+#### kube-system
+For k8s system use
+#### kube-public
+publicly accessable data. It is a configmap that contains data without authentication.
+#### kube-node-lease
+contains heartbeat/availability of nodes information.
+#### default
+default if you haven't create a new namespace
+
+### create namespace
+`kubectl create namespace [name]`
+
+Or it can be created with config file:
+```
+metadata: 
+  namespace: some-name
+```
+
+`kubectl get pod` equals to `kubectl get pod -n default`

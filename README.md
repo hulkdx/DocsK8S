@@ -61,7 +61,7 @@ a storage for k8s itself
 ## Tools
 ### minikube
 - To test k8s on local machine 
-- A node cluseter run on virtual box
+- A node cluster run on virtual box
 
 ### kubectl commands
 ```sh
@@ -180,14 +180,51 @@ spec:
 
 ## [01 - Example](01-example/NOTE.md)
 
+## Ingress
+You want to have my-app.com website and not IP:PORT. 
+So you change your external service into internal and then use ingress. and ingress will redirect to that internal service.
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+spec:
+  rules:
+  - host: myapp.com
+    http:
+      paths:
+        backend:
+          serviceName: myapp-internal-service
+          servicePort: 8080
+```
+
+The yaml file alone won't be enough and it needs ingress controller
+
+### Ingress Controller
+A pod or a set of pods that does evaluation and process of ingress rules.
+
+It evaluates all the rules then manages the redirections.
+
+You can choose between many third-party application for Ingress Controller. `K8s Nginx Ingress Controller` is from kubernetes itself. It depends on the cloud service provide. 
+
+### Ingress in cloud service:
+
+Not the only way but one of the common way: 
+1. Requests first hit the cloud load balancer (ALS) 
+1. Redirect to Ingress controller
+1. Ingress rule needs to be defined
+
+### [Example Ingress for example 01](01-example-ingress/NOTE.md)
+
 ## Namespace
-Organise your resources in a namespace
+Organize your resources in a namespace
 
 ### out of box namespaces
 #### kube-system
 For k8s system use
 #### kube-public
-publicly accessable data. It is a configmap that contains data without authentication.
+publicly accessible data. It is a configmap that contains data without authentication.
 #### kube-node-lease
 contains heartbeat/availability of nodes information.
 #### default

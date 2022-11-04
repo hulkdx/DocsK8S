@@ -179,3 +179,6 @@ spec:
   - In minikube run `minikube service [service name]`
 
 ## [01 - Example](01-example/NOTE.md)
+
+## Namespace
+Organise your resources in a namespace.

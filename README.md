@@ -220,7 +220,7 @@ Not the only way but one of the common way:
 ## Namespace
 Organize your resources in a namespace
 
-### out of box namespaces
+### Out of box namespaces
 #### kube-system
 For k8s system use
 #### kube-public
@@ -230,7 +230,7 @@ contains heartbeat/availability of nodes information.
 #### default
 default if you haven't create a new namespace
 
-### create namespace
+### Create namespace
 `kubectl create namespace [name]`
 
 Or it can be created with config file:

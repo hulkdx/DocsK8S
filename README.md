@@ -24,7 +24,9 @@ Just some configuration
 config for secrets 
 
 ### Volumes
-It’s a storage, if db pod get restarted, the data will be restarted as well, but with volumes this won't happen. 
+It’s a storage.
+
+If db pod get restarted, the data will be restarted as well, but with volumes this won't happen. 
 
 ### Deployment
 A blueprint for pods, which specifies how many replica of a ped is needed.

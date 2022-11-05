@@ -1,4 +1,4 @@
-# Kubernetes
+# Kubernetes documentation
 
 ## Components
 
@@ -217,6 +217,9 @@ Not the only way but one of the common way:
 
 ### [Example Ingress for example 01](01-example-ingress/NOTE.md)
 
+### Ingress default backend
+When page is not found will call it.
+
 ## Namespace
 Organize your resources in a namespace
 
@@ -240,3 +243,22 @@ metadata:
 ```
 
 `kubectl get pod` equals to `kubectl get pod -n default`
+
+## Helm
+
+Package manager for k8s, to package/distribute yaml files.
+
+### Helm charts
+
+Bundles of YAML files
+
+### Template engine
+
+Example:
+```yaml
+values.yaml
+name: my-app
+pod.yaml
+metadata:
+  name: {{ .Values.name }}
+```

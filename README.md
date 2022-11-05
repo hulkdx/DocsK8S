@@ -50,7 +50,7 @@ Provides `persistent volume` dynamically whenever `persistent volume claim` clai
 #### ConfigMap and Secrets
 You can mount them into the pod
 
-</details><br>
+<br></details>
 
 ### Deployment
 A blueprint for pods, which specifies how many replica of a ped is needed.

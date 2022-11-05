@@ -26,6 +26,32 @@ config for secrets
 ### Volumes
 It’s a storage, if db pod get restarted, the data will be restarted as well, but with volumes this won't happen. 
 
+<details><summary>Types of volumes</summary><br>
+
+#### Persistent volume
+- doesn't depends on the pod lifecycle
+- available to all nodes
+- must survive if all cluster crash
+- Needs actual storage
+  - Can come from any source
+  - k8s doesn't create or backup the volume
+
+Admin role creates `persistent volume` and users create `persistent volume claim`
+
+##### Persistent volume claim
+Application needs to claim the pv so it can use them. Another k8s component.
+
+Defines the size of the volume and access type and whatever volume matches this criteria, will be used.
+In the pod you have to use that claim in the pod specification. Then the volume is mounted in the pod.
+
+##### Storage Class
+Provides `persistent volume` dynamically whenever `persistent volume claim` claims it.
+
+#### ConfigMap and Secrets
+You can mount them into the pod
+
+</details><br>
+
 ### Deployment
 A blueprint for pods, which specifies how many replica of a ped is needed.
 

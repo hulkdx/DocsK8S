@@ -62,6 +62,22 @@ A blueprint for pods, which specifies how many replica of a ped is needed.
 - It is difficult to use this component.
 - Database are often hosted outside k8s. 
 
+<details><summary>More information</summary>
+
+- Cannot be created/deleted at the same time
+- Cannot be randomly addressed
+- Replica pods are not identical, they have their own additional identity
+
+#### Pod Identity 
+- Sticky id for each pod
+- Created from the same spec but not interchangeable
+- Each has a persistent id that maintains across rescheduling
+
+Why it needs id? 
+https://youtu.be/X48VuDVv0do?t=11054
+
+</details>
+
 ## Processes
 ### Running on every node:
 **Docker**

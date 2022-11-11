@@ -5,6 +5,8 @@
 ### Node
 a server (physical / virtual machine)
 
+- Master node: is a node that manages worker noder.
+
 ### Pod
 - Contains a docker container
 - Each pods get an IP, also get a new IP upon recreation

@@ -121,6 +121,7 @@ kubectl delete deployment NAME
 kubectl edit deployment NAME 
 
 kubectl logs [pod name] 
+kubectl logs -f [pod name] # To watch
  
 # Show for example the docker download image status
 kubectl describe pod [pod name] 

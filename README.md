@@ -14,9 +14,6 @@ a server (physical / virtual machine)
 ### Service
 A permanent IP address, it is also a loadbalancer
 - **External service**: a service that is accessible from an external source such as http://124.89.20.4:8080, it can be one of the following types:
-  - NodePort: use-case only for debugging, it's purpose is to give a worker node an access to underlying pod.
-    - It can be only access through the node, needs to be defined three values: `port` => service port, `targetPort` => pod port, `nodePort` the port to be access from the internet
-  - LoadBalancer, defined same like `NodePort` but given also have `type: LoadBalancer`, (the example is [below](#external-service)). Its not restricted to a specific node to connect to it.
 - **Internal service**
 
 ### Ingress 

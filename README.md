@@ -120,8 +120,7 @@ kubectl delete deployment NAME
 # Show auto generated deployment file, and you can edit it for example the image 
 kubectl edit deployment NAME 
 
-kubectl logs [pod name] 
-kubectl logs -f [pod name] # To watch
+kubectl logs [pod name]
  
 # Show for example the docker download image status
 kubectl describe pod [pod name] 
@@ -130,6 +129,7 @@ kubectl exec –it [pod name] -- bin/bash
  
 kubectl apply –f config_filename 
 ```
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 ### Config file
 

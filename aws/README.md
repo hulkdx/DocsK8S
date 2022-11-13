@@ -22,6 +22,21 @@ Instead of EC2, we run our apps on serverless.
 
 - It provides on-demand, right size compute capacity for containers
 
+### VPC
+
+- VPC is your isolated network within a region and it contains all `availability zone`
+- Needs a IP range
+
+#### Subnets
+
+- Is network inside one of the `availability zone`
+- Needs a subset of VPC's IP address range
+
+#### Internet gateway / igw
+- Allow to communicate between your VPC and the internet.
+- Internet accesss can be inbound or outbound
+- Even ssh to the instance is not possible without igw
+
 ## eksctl
 
 - a tool to simplify creating eks.

@@ -81,3 +81,10 @@ eksctl create nodegroup --cluster=eksdemo1 \
                        --appmesh-access \
                        --alb-ingress-access 
 ```
+
+## Terraform
+### Terraform module
+
+Terraform module is to simplify creating amazon services.
+
+EKS service example: [01-terraform-module-example](01-terraform-module-example)

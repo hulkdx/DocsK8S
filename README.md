@@ -5,7 +5,7 @@
 ### Node
 a server (physical / virtual machine)
 
-- Master node: is a node that manages worker noder.
+- Master node: is a node that manages worker nodes.
 
 ### Pod
 - Contains a docker container
@@ -264,6 +264,13 @@ Not the only way but one of the common way:
 
 ### Ingress default backend
 When page is not found will call it.
+
+## Rollback pods
+```sh
+kubectl rollout history deployment/name
+kubectl rollout undo    deployment/name
+kubectl rollout undo    deployment/name --to-revision=3
+```
 
 # Not important section
 

@@ -1,4 +1,4 @@
-# AWS EKS Documents
+# What is EKS
 
 - AWS manages master nodes
 - AWS installs all apps in master nodes
@@ -6,7 +6,7 @@
   - EC2
   - Fargate: serverless containers
   
-# To create EKS
+# How to create EKS
 
 ## using eksctl
 
@@ -48,6 +48,7 @@ eksctl create nodegroup --cluster=eksdemo1 \
                        # managed means aws will take care of patching, auto-upgrading, etc
                        --managed \
                        # Giving some access: 
+                       # TODO: what are these access?
                        --asg-access \
                        --external-dns-access \
                        --full-ecr-access \
@@ -64,6 +65,7 @@ TODO: review this section if it is `outdated` or not
 
 Terraform module is to simplify creating amazon services.
 
+TODO: this example is probably `outdated`
 EKS service example: [01-terraform-module-example](01-terraform-module-example)
 
 # Other aws services related to EKS

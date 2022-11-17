@@ -88,3 +88,13 @@ eksctl create nodegroup --cluster=eksdemo1 \
 Terraform module is to simplify creating amazon services.
 
 EKS service example: [01-terraform-module-example](01-terraform-module-example)
+
+## EBS CSI driver
+
+- It requires some AMI policy for the nodes
+- Manages the lifecycle of the EBS volumes for pv in k8s (create/resize/delete volumes)
+```sh
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
+```
+
+- Youtube: What is it?

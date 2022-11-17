@@ -1,43 +1,16 @@
 # AWS EKS Documents
 
-- Aws manages master nodes
-- Install all the apps on them
-- Scale / backup when needed
+- AWS manages master nodes
+- AWS installs all apps in master nodes
+- EKS can run:
+  - EC2
+  - Fargate: serverless containers
+  
+# To create EKS
 
-## Core objects
+## using eksctl
 
-### EKS Control Plane
-
-It's the master node, managed by aws
-
-### Worker nodes & node groups
-
-Group of EC2 instances.
-
-EC2 instances needs to have the same instance type, ami and IAM role.
-
-### Fargate Profiles (serverless)
-
-Instead of EC2, we run our apps on serverless.
-
-- It provides on-demand, right size compute capacity for containers
-
-### VPC
-
-- VPC is your isolated network within a region and it contains all `availability zone`
-- Needs a IP range
-
-#### Subnets
-
-- Is network inside one of the `availability zone`
-- Needs a subset of VPC's IP address range
-
-#### Internet gateway / igw
-- Allow to communicate between your VPC and the internet.
-- Internet accesss can be inbound or outbound
-- Even ssh to the instance is not possible without igw
-
-## eksctl
+TODO: review this section if it is `outdated` or not
 
 - a tool to simplify creating eks.
 - It's not from aws, but from [weaveworks](https://github.com/weaveworks/eksctl)
@@ -82,19 +55,42 @@ eksctl create nodegroup --cluster=eksdemo1 \
                        --alb-ingress-access 
 ```
 
+
 ## Terraform
+
+TODO: review this section if it is `outdated` or not
+
 ### Terraform module
 
 Terraform module is to simplify creating amazon services.
 
 EKS service example: [01-terraform-module-example](01-terraform-module-example)
 
+# Other aws services related to EKS
+
+## VPC
+
+- VPC is your isolated network within a region and it contains all `availability zone`
+- Needs a IP range
+
+### Subnets
+
+- Is network inside one of the `availability zone`
+- Needs a subset of VPC's IP address range
+
+### Internet gateway / igw
+- Allow to communicate between your VPC and the internet.
+- Internet accesss can be inbound or outbound
+- Even ssh to the instance is not possible without igw
+
+# AWS stateful k8s
+
 ## EBS CSI driver
+
+TODO: this section is probably outdated
 
 - It requires some AMI policy for the nodes
 - Manages the lifecycle of the EBS volumes for pv in k8s (create/resize/delete volumes)
 ```sh
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
 ```
-
-- Youtube: What is it?

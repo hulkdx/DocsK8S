@@ -89,10 +89,10 @@ EKS service example: [01-terraform-module-example](01-terraform-module-example)
 
 ## EBS CSI driver
 
-TODO: this section is probably outdated
-
+- Manages the lifecycle of the EBS volumes for persistent volume in k8s (create/resize/delete volumes)
 - It requires some AMI policy for the nodes
-- Manages the lifecycle of the EBS volumes for pv in k8s (create/resize/delete volumes)
-```sh
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=master"
-```
+[Docs](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
+
+## Examples
+
+- [Mysql using EBS csi driver](https://github.com/stacksimplify/aws-eks-kubernetes-masterclass/tree/master/04-EKS-Storage-with-EBS-ElasticBlockStore/04-02-SC-PVC-ConfigMap-MySQL)

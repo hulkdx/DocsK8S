@@ -19,6 +19,9 @@ A permanent IP address, it is also a loadbalancer
 ### Ingress 
 like external service but for https://my-app.com, does the forwarding to service
 
+- `ingress` means entering the cloud
+- `egress` means exiting the cloud
+
 ### ConfigMap
 Just some configuration
 

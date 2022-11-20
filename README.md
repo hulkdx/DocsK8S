@@ -388,3 +388,18 @@ readinessProbe:
   initialDelaySeconds: 60
   periodSeconds: 10     
 ```
+
+## Resources: request and limits
+
+- Limits: as the `maximum` amount of a resource to be used by a container.
+- Requests, on the other hand, are the `minimum` guaranteed amount of a resource that is reserved for a container
+
+```yml
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "500m"
+  limits:
+    memory: "500Mi"
+    cpu: "1000m"
+```

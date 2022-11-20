@@ -316,3 +316,22 @@ pod.yaml
 metadata:
   name: {{ .Values.name }}
 ```
+
+## Init containers
+
+- Runs before app containers
+- Run to completions
+- Needs to complete successfully before next init container 
+- Can have multiple init containers before app contaienrs runs
+- Can contains setup scripts annd they can run before app container runs
+
+```yml
+kind: Deployment
+...
+  template:
+    spec:
+      initContainers:
+        - name: init-db
+          image: busybox:1.31
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']
+```

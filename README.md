@@ -335,3 +335,26 @@ kind: Deployment
           image: busybox:1.31
           command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']
 ```
+
+## Probs
+
+
+### Liveness probs
+
+Restarts the app, if forexample a deadlock appears in the app.
+
+### Readiness probs
+
+- When pod can accept the traffic.
+- If the pod is not ready it is removed from service load balancer.
+
+### Startup probs
+
+- To know when a contianer app has started.
+- It disables liveness and readiness probes until startup probs is succeeded
+
+### Options to create probs
+
+- Using shell scripts
+- Using http get request, e.g. GET health-status
+- Using plain tcp socket connection 

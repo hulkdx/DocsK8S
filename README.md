@@ -358,3 +358,33 @@ Restarts the app, if forexample a deadlock appears in the app.
 - Using shell scripts
 - Using http get request, e.g. GET health-status
 - Using plain tcp socket connection 
+
+### Examples:
+
+Liveness Probe with Command:
+```yml
+kind: Deployment
+...
+containers:
+  - ...
+  livenessProbe:
+    exec:
+      command:
+        - /bin/sh
+        - -c
+        - nc -z localhost 8095
+    # The pod won't show ready until this time is passed
+    initialDelaySeconds: 60
+    # How often should call this prob
+    periodSeconds: 10
+```
+
+Readiness Probe with HTTP GET:
+```yml
+readinessProbe:
+  httpGet:
+    path: /usermgmt/health-status
+    port: 8095
+  initialDelaySeconds: 60
+  periodSeconds: 10     
+```

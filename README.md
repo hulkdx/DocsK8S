@@ -40,6 +40,7 @@ It’s a storage, if db pod get restarted, the data will be restarted as well, b
 - Needs actual storage
   - Can come from any source
   - k8s doesn't create or backup the volume
+- Cannot be namespaced
 
 Admin role creates `persistent volume` and users create `persistent volume claim`
 

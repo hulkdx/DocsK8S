@@ -396,6 +396,7 @@ readinessProbe:
 
 - Limits: as the `maximum` amount of a resource to be used by a container.
 - Requests, on the other hand, are the `minimum` guaranteed amount of a resource that is reserved for a container
+- These can be requested per namespaces as well.
 
 ```yml
 resources:

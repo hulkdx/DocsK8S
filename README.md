@@ -398,7 +398,7 @@ readinessProbe:
 
 - Limits: as the `maximum` amount of a resource to be used by a container.
 - Requests, on the other hand, are the `minimum` guaranteed amount of a resource that is reserved for a container
-- These can be requested per namespaces as well with [LimitRange](https://github.com/stacksimplify/aws-eks-kubernetes-masterclass/tree/master/05-Kubernetes-Important-Concepts-for-Application-Deployments/05-05-Kubernetes-Namespaces/05-05-02-Namespaces-LimitRange-default).
+- These can be requested per namespaces as well with [LimitRange](https://github.com/stacksimplify/aws-eks-kubernetes-masterclass/tree/master/05-Kubernetes-Important-Concepts-for-Application-Deployments/05-05-Kubernetes-Namespaces/05-05-02-Namespaces-LimitRange-default) or [ResourceQuota](https://github.com/stacksimplify/aws-eks-kubernetes-masterclass/tree/master/05-Kubernetes-Important-Concepts-for-Application-Deployments/05-05-Kubernetes-Namespaces/05-05-03-Namespaces-ResourceQuota)
 
 ```yml
 resources:

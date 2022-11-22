@@ -99,4 +99,15 @@ EKS service example: [01-terraform-module-example](01-terraform-module-example)
 
 - [Mysql using EBS csi driver](https://github.com/stacksimplify/aws-eks-kubernetes-masterclass/tree/master/04-EKS-Storage-with-EBS-ElasticBlockStore/04-02-SC-PVC-ConfigMap-MySQL)
 
+## RDS
 Mysql is difficult to implement properly in aws and we can leverage RDS service.
+
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  type: ExternalName
+  externalName: usermgmtdb.c7hldelt9xfp.us-east-1.rds.amazonaws.com
+```

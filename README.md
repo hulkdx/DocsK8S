@@ -52,6 +52,7 @@ In the pod you have to use that claim in the pod specification. Then the volume 
 
 ##### Storage Class
 Provides `persistent volume` dynamically whenever `persistent volume claim` claims it.
+- Cannot be namespaced
 
 #### ConfigMap and Secrets
 You can mount them into the pod

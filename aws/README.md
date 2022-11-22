@@ -92,6 +92,8 @@ EKS service example: [01-terraform-module-example](01-terraform-module-example)
 - Manages the lifecycle of the EBS volumes for persistent volume in k8s (create/resize/delete volumes)
 - It requires some AMI policy for the nodes
 [Docs](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
+- EBS is limited to an availability zones (not on a region).
+
 
 ## Examples
 

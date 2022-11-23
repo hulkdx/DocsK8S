@@ -111,3 +111,22 @@ spec:
   type: ExternalName
   externalName: usermgmtdb.c7hldelt9xfp.us-east-1.rds.amazonaws.com
 ```
+
+# Autoscaller
+## Horizontal Pod Autoscaller
+Automatically increase the number of pods
+
+[docs](https://docs.aws.amazon.com/eks/latest/userguide/horizontal-pod-autoscaler.html)
+
+## Vertical Pod Autoscaller
+Launch a new pod with increased/decreased cpu/memory
+
+[docs](https://docs.aws.amazon.com/eks/latest/userguide/vertical-pod-autoscaler.html)
+
+# Cluster autoscaller
+
+Autoscale the EC2, on these conditions
+- Pods fails to run due to insufficient resources
+- Pods that are underutilized and the pod can be placed on the other node.
+
+[docs](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)

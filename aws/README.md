@@ -129,10 +129,33 @@ Launch a new pod with increased/decreased cpu/memory
 
 [docs](https://docs.aws.amazon.com/eks/latest/userguide/vertical-pod-autoscaler.html)
 
-# Cluster autoscaller
+## Cluster autoscaller
 
 Autoscale the EC2, on these conditions
 - Pods fails to run due to insufficient resources
 - Pods that are underutilized and the pod can be placed on the other node.
 
 [docs](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)
+
+# Load balancer
+
+[comparison](https://aws.amazon.com/elasticloadbalancing/features/)
+
+## Classic
+The default load balancer is classic load balancer. You can create it using private `node groups` with:
+```yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: clb-usermgmt-restapp
+  labels:
+    app: usermgmt-restapp
+spec:
+  # just this line is required
+  type: LoadBalancer
+  selector:
+    app: usermgmt-restapp     
+  ports:
+  - port: 80
+    targetPort: 8095
+```

@@ -85,6 +85,9 @@ EKS service example: [01-terraform-module-example](01-terraform-module-example)
 - Internet accesss can be inbound or outbound
 - Even ssh to the instance is not possible without igw
 
+### NAT gateway
+Internet Gateway (IGW) allows instances with public IPs to access the internet. NAT Gateway (NGW) allows instances with no public IPs to access the internet.
+
 # AWS stateful k8s
 
 ## EBS CSI driver

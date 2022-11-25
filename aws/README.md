@@ -142,6 +142,24 @@ resource "aws_internet_gateway" "NAME" {
   vpc_id = aws_vpc.main.id
 }
 ```
+### Route table
+### Public route table
+```terraform
+resource "aws_route_table" "NAME" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    # all ip addresses
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.NAME.id
+  }
+}
+
+resource "aws_route_table_association" "NAME" {
+  subnet_id      = aws_subnet.NAME.id
+  route_table_id = aws_route_table.NAME.id
+}
+```
 
 # eksctl
 <details><summary>more info</summary>

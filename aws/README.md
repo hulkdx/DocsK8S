@@ -21,9 +21,11 @@
 - Allow to communicate between your VPC and the internet.
 - Internet accesss can be inbound or outbound
 - Even ssh to the instance is not possible without igw
+- It is free, [pricing](https://aws.amazon.com/vpc/pricing/)
 
 ### NAT gateway
 Internet Gateway (IGW) allows instances with public IPs to access the internet. NAT Gateway (NGW) allows instances with no public IPs to access the internet.
+- It is not free
 
 
 ## Load balancer

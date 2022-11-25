@@ -96,10 +96,52 @@ Autoscale the EC2, on these conditions
 [docs](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)
 
 # Terraform
-
-
 ## Examples
 `outdated?` EKS service example: [01-terraform-module-example](01-terraform-module-example)
+
+## VPC
+```terraform
+resource "aws_vpc" "NAME" {
+  cidr_block           = "10.0.0.0/16"
+  # Optional: instances receive public DNS hostnames
+  enable_dns_hostnames = "true"
+}
+```
+### Subnet
+#### Private subnet
+```terraform
+resource "aws_subnet" "NAME" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "eu-west-1a"
+  tags                    = {
+    # Is required by kubernetes to discover subnets where private load balancer will be created
+    "kubernetes.io/role/internal-elb" = "1"
+    # must tag it with cluster name (ie. demo below)
+    # owned if its only used by kubernetes or shared if its shared with other services or other eks cluster
+    "kubernetes.io/cluster/demo"      = "owned"
+  }
+}
+```
+#### Public subnet
+```terraform
+resource "aws_subnet" "NAME" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "eu-west-1a"
+  map_public_ip_on_launch = true
+  tags                    = {
+    "kubernetes.io/role/elb"     = "1"
+    "kubernetes.io/cluster/demo" = "owned"
+  }
+}
+```
+### Internet gateway / igw
+```terraform
+resource "aws_internet_gateway" "NAME" {
+  vpc_id = aws_vpc.main.id
+}
+```
 
 # eksctl
 <details><summary>more info</summary>

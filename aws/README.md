@@ -98,8 +98,6 @@ Autoscale the EC2, on these conditions
 [docs](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)
 
 # Terraform
-## Examples
-`outdated?` EKS service example: [01-terraform-module-example](01-terraform-module-example)
 
 ## VPC
 ```terraform

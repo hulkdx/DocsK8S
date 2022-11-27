@@ -100,7 +100,6 @@ resource "aws_eks_cluster" "NAME" {
 
   depends_on = [
     aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy,
   ]
 }
 ```

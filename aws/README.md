@@ -101,6 +101,8 @@ Autoscale the EC2, on these conditions
 
 [docs](https://docs.aws.amazon.com/eks/latest/userguide/autoscaling.html)
 
+## oidc 
+[OpenID connector provider](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) which will allow granting IAM permissions based on the service account used by the pod.
 
 # eksctl
 <details><summary>more info</summary>

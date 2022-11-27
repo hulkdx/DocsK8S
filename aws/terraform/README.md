@@ -183,6 +183,7 @@ resource "aws_iam_role_policy_attachment" "node_policy_AmazonEC2ContainerRegistr
 
 ```
 ### oidc
+Create service account for the pods:
 ```terraform
 data "tls_certificate" "eks" {
   url = aws_eks_cluster.demo.identity[0].oidc[0].issuer
@@ -194,32 +195,26 @@ resource "aws_iam_openid_connect_provider" "eks" {
   url             = aws_eks_cluster.demo.identity[0].oidc[0].issuer
 }
 ```
-#### test oidc
+#### Attach policy to service account
+For example s3 permissions below:
 ```terraform
-data "aws_iam_policy_document" "test_oidc_assume_role_policy" {
-  statement {
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
-
-    condition {
-      test     = "StringEquals"
-      variable = "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
-      values   = ["system:serviceaccount:default:aws-test"]
-    }
-
-    principals {
-      identifiers = [aws_iam_openid_connect_provider.eks.arn]
-      type        = "Federated"
-    }
-  }
-}
-
 resource "aws_iam_role" "test_oidc" {
-  assume_role_policy = data.aws_iam_policy_document.test_oidc_assume_role_policy.json
+  assume_role_policy = jsonencode({
+    Statement = {
+      Action = "sts:AssumeRoleWithWebIdentity"
+      Effect = "Allow"
+      Condition = {
+        Test     = "StringEquals"
+        Variable = "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
+        Values   = ["system:serviceaccount:default:aws-test"]
+      }
+      Principal = {
+        Identifiers = [aws_iam_openid_connect_provider.eks.arn]
+        Type        = "Federated"
+      }
+    }
+  })
 }
-```
-Test attach a policy to the service account
-```terraform
 resource "aws_iam_policy" "test-policy" {
   name = "test-policy"
 
@@ -235,7 +230,6 @@ resource "aws_iam_policy" "test-policy" {
     Version = "2012-10-17"
   })
 }
-
 resource "aws_iam_role_policy_attachment" "test_attach" {
   role       = aws_iam_role.test_oidc.name
   policy_arn = aws_iam_policy.test-policy.arn

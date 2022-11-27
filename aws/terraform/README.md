@@ -4,7 +4,8 @@
 ```terraform
 resource "aws_vpc" "NAME" {
   cidr_block           = "10.0.0.0/16"
-  # Optional: instances receive public DNS hostnames
+  # EC2 instances receive public dns hostnames
+  # It is required by aws to enable dns hostnames
   enable_dns_hostnames = "true"
 }
 ```
@@ -18,9 +19,6 @@ resource "aws_subnet" "NAME" {
   tags                    = {
     # Is required by kubernetes to discover subnets where private load balancer will be created
     "kubernetes.io/role/internal-elb" = "1"
-    # must tag it with cluster name (ie. demo below)
-    # owned if its only used by kubernetes or shared if its shared with other services or other eks cluster
-    "kubernetes.io/cluster/demo"      = "owned"
   }
 }
 ```
@@ -33,7 +31,6 @@ resource "aws_subnet" "NAME" {
   map_public_ip_on_launch = true
   tags                    = {
     "kubernetes.io/role/elb"     = "1"
-    "kubernetes.io/cluster/demo" = "owned"
   }
 }
 ```
@@ -58,24 +55,20 @@ resource "aws_nat_gateway" "nat" {
   depends_on = [aws_internet_gateway.igw]
 }
 ```
-
-```
 ### Route table
 ### Public route table
 ```terraform
 resource "aws_route_table" "NAME" {
   vpc_id = aws_vpc.main.id
-
   route {
-    # all ip addresses
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.NAME.id
   }
 }
 
 resource "aws_route_table_association" "NAME" {
-  subnet_id      = aws_subnet.NAME.id
   route_table_id = aws_route_table.NAME.id
+  subnet_id      = aws_subnet.NAME.id
 }
 ```
 ### Private route table
@@ -83,13 +76,53 @@ resource "aws_route_table_association" "NAME" {
 resource "aws_route_table" "NAME" {
   vpc_id = aws_vpc.main.id
   route {
-    cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.NAME.id
+    cidr_block = "0.0.0.0/0"
   }
 }
 
 resource "aws_route_table_association" "NAME" {
-  subnet_id      = aws_subnet.NAME.id
   route_table_id = aws_route_table.NAME.id
+  subnet_id      = aws_subnet.NAME.id
+}
+```
+
+## EKS
+```terraform
+resource "aws_eks_cluster" "NAME" {
+  name     = var.cluster-name
+  role_arn = aws_iam_role.demo-cluster.arn
+
+  vpc_config {
+    security_group_ids = [aws_security_group.demo-cluster.id]
+    subnet_ids = module.vpc.public_subnets
+  }
+
+  depends_on = [
+    aws_iam_role_policy_attachment.demo-cluster-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.demo-cluster-AmazonEKSServicePolicy,
+  ]
+}
+```
+
+### Role and policy
+EKS will call other aws services on your behalf (e.g. autoscaling group) so it needs a role and policy:
+```terraform
+resource "aws_iam_role" "demo" {
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = {
+        Service = "eks.amazonaws.com"
+      }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "demo-AmazonEKSClusterPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.demo.name
 }
 ```

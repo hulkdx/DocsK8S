@@ -11,6 +11,10 @@
 
 - VPC is your isolated network within a region and it contains all `availability zone`
 - Needs a IP range
+- EKS requirements:
+  - Requires at least two subnets that are in different Availability Zones
+  - The VPC must have DNS hostname and DNS resolution support
+  - [More info](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
 
 ### Subnets
 

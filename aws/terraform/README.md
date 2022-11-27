@@ -92,6 +92,7 @@ resource "aws_route_table_association" "NAME" {
 resource "aws_eks_cluster" "NAME" {
   name     = var.cluster-name
   role_arn = aws_iam_role.demo-cluster.arn
+  version  = "1.24"
 
   vpc_config {
     security_group_ids = [aws_security_group.demo-cluster.id]

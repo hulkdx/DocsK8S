@@ -106,7 +106,7 @@ resource "aws_eks_cluster" "NAME" {
 ```
 
 ### Role and policy
-EKS will call other aws services on your behalf (e.g. autoscaling group) so it needs a role and policy:
+EKS will call other aws services on your behalf (e.g. autoscaling group) so it needs a role and policy, [more info](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonEKSClusterPolicy)
 ```terraform
 resource "aws_iam_role" "demo" {
   assume_role_policy = jsonencode({

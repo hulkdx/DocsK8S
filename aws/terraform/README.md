@@ -86,7 +86,6 @@ resource "aws_route_table_association" "NAME" {
   subnet_id      = aws_subnet.NAME.id
 }
 ```
-
 ## EKS
 ```terraform
 resource "aws_eks_cluster" "NAME" {
@@ -104,7 +103,6 @@ resource "aws_eks_cluster" "NAME" {
   ]
 }
 ```
-
 ### Role and policy
 EKS will call other aws services on your behalf (e.g. autoscaling group) so it needs a role and policy, [more info](https://docs.aws.amazon.com/eks/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-AmazonEKSClusterPolicy)
 ```terraform
@@ -154,6 +152,7 @@ resource "aws_eks_node_group" "NAME" {
   depends_on = [
     aws_iam_role_policy_attachment.node_policy_AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.node_policy_AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.node_policy_AmazonEKS_CNI_Policy,
   ]
 }
 ```
@@ -171,7 +170,6 @@ resource "aws_iam_role" "NAME" {
     Version = "2012-10-17"
   })
 }
-
 resource "aws_iam_role_policy_attachment" "NAME" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.nodes.name
@@ -180,7 +178,10 @@ resource "aws_iam_role_policy_attachment" "node_policy_AmazonEC2ContainerRegistr
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.main_eks_node_group_role.name
 }
-
+resource "aws_iam_role_policy_attachment" "node_policy_AmazonEKS_CNI_Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.main_eks_node_group_role.name
+}
 ```
 ### oidc
 Create service account for the pods:

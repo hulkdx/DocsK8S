@@ -196,24 +196,25 @@ resource "aws_iam_openid_connect_provider" "eks" {
   url             = aws_eks_cluster.demo.identity[0].oidc[0].issuer
 }
 ```
-#### Attach policy to service account
-For example s3 permissions below:
+#### To test oidc is working
+Define policies for accessing `s3:ListAllMyBuckets`:
 ```terraform
 resource "aws_iam_role" "test_oidc" {
   assume_role_policy = jsonencode({
-    Statement = {
+    Version = "2012-10-17"
+    Statement = [{
       Action = "sts:AssumeRoleWithWebIdentity"
-      Effect = "Allow"
       Condition = {
-        Test     = "StringEquals"
-        Variable = "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub"
-        Values   = ["system:serviceaccount:default:aws-test"]
+        StringEquals = {
+          "${replace(aws_iam_openid_connect_provider.eks.url, "https://", "")}:sub" = "system:serviceaccount:default:aws-test"
+        }
       }
+      Effect = "Allow"
       Principal = {
-        Identifiers = [aws_iam_openid_connect_provider.eks.arn]
-        Type        = "Federated"
+        Federated = "arn:aws:iam::115563711365:oidc-provider/oidc.eks.eu-north-1.amazonaws.com/id/4708E9AA3B9C8348F43DDB013B3A4DCF"
       }
-    }
+      Sid = ""
+    }]
   })
 }
 resource "aws_iam_policy" "test-policy" {
@@ -235,7 +236,38 @@ resource "aws_iam_role_policy_attachment" "test_attach" {
   role       = aws_iam_role.test_oidc.name
   policy_arn = aws_iam_policy.test-policy.arn
 }
+output "oidc_arn" {
+  value = aws_iam_openid_connect_provider.eks.arn
+}
 ```
+Then deploy
+```yml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  # Name should be the same as defined above
+  name: aws-test
+  namespace: default
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: aws-cli
+  namespace: default
+  annotations:
+    eks.amazonaws.com/role-arn: NAME
+spec:
+  serviceAccountName: aws-test
+  containers:
+  - name: aws-cli
+    image: amazon/aws-cli
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+  tolerations:
+  - operator: Exists
+    effect: NoSchedule
+```
+execute command `kubectl exec aws-cli -- aws s3api list-buckets` should work.
 
 # kubectl
 ```sh

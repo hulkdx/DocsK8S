@@ -286,6 +286,7 @@ When page is not found will call it.
 
 </details>
 
+## Others
 <details><summary>Minikube</summary>
 
 - To test k8s on local machine 

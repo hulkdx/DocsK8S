@@ -108,11 +108,10 @@ detects a crash, etc from pods and tries to recover the pod
 a storage for k8s itself 
 
 ## Tools
-### minikube
-- To test k8s on local machine 
-- A node cluster run on virtual box
 
-### kubectl commands
+<details><summary>kubectl commands</summary>
+
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 ```sh
 kubectl get nodes 
 kubectl get pod 
@@ -134,11 +133,12 @@ kubectl exec –it [pod name] -- bin/bash
  
 kubectl apply –f config_filename 
 ```
-https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+</details>
 
 ### Config file
 
-#### Deployment
+<details><summary>Deployment</summary>
+
 ```yaml
 apiVersion: apps/v1 
 kind: Deployment 
@@ -172,7 +172,9 @@ spec:
             - containerPort: 8080 
 ```
 
-#### Internal Service
+</details>
+<details><summary>Internal Service</summary>
+
 ```yaml
 apiVersion: v1 
 kind: Service  
@@ -187,12 +189,17 @@ spec:
       port: 80 
       targetPort: 8080 
 ```
-#### Explanation of config file
+
+</details>
+
+#### label and selection explanation of example above:
 - (3): A pod has a label `app: nginx` (it can be any other key-value pair), 
 - (2): Create a connection between deployment (2) and pod (3) 
 - (1): This is the deployment label and will be used by the service selector (4) 
 - (4): connect to the deployment (1) also to the pod (3)  
-#### Secret
+
+<details><summary>Secret</summary>
+
 ```yaml
 apiVersion: v1
 kind: Secret 
@@ -204,7 +211,9 @@ data:
   password: BASE_64_VALUE
 ```
 
-#### External Service
+</details>
+<details><summary>External Service</summary>
+
 ```yaml
 apiVersion: v1 
 kind: Service  
@@ -225,8 +234,8 @@ spec:
       nodePort: 30000
 ```
 - if the command `kubectl get service` you can see the external ip address
-- In minikube this is not working and showing  pending
-  - In minikube run `minikube service [service name]`
+
+</details>
 
 ## [01 - Example](k8s-examples/01-01-example/README.md)
 
@@ -277,9 +286,17 @@ kubectl rollout undo    deployment/name
 kubectl rollout undo    deployment/name --to-revision=3
 ```
 
-# Not important section
+## Others
+<details><summary>Minikube</summary>
 
-## Namespace
+- To test k8s on local machine 
+- A node cluster run on virtual box
+- In minikube service running is not working and showing pending
+  - `minikube service [service name]` to make it work
+
+</details>
+<details><summary>Namespace</summary>
+
 Organize your resources in a namespace
 
 ### Out of box namespaces
@@ -303,7 +320,8 @@ metadata:
 
 `kubectl get pod` equals to `kubectl get pod -n default`
 
-## Helm
+</details>
+<details><summary>Helm</summary>
 
 Package manager for k8s, to package/distribute yaml files.
 
@@ -322,7 +340,8 @@ metadata:
   name: {{ .Values.name }}
 ```
 
-## Init containers
+</details>
+<details><summary>Init containers</summary>
 
 - Runs before app containers
 - Run to completions
@@ -341,8 +360,8 @@ kind: Deployment
           command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']
 ```
 
-## Probs
-
+</details>
+<details><summary>Probs</summary>
 
 ### Liveness probs
 
@@ -394,7 +413,8 @@ readinessProbe:
   periodSeconds: 10     
 ```
 
-## Resources: request and limits
+</details>
+<details><summary>Requests and limits</summary>
 
 - Limits: as the `maximum` amount of a resource to be used by a container.
 - Requests, on the other hand, are the `minimum` guaranteed amount of a resource that is reserved for a container
@@ -410,3 +430,4 @@ resources:
     memory: "500Mi"
     cpu: "1000m"
 ```
+</details>

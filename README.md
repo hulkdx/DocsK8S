@@ -111,7 +111,8 @@ a storage for k8s itself
 
 <details><summary>kubectl commands</summary>
 
-https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+- [cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
 ```sh
 kubectl get nodes 
 kubectl get pod 
@@ -131,7 +132,12 @@ kubectl describe pod [pod name]
  
 kubectl exec –it [pod name] -- bin/bash 
  
-kubectl apply –f config_filename 
+kubectl apply –f config_filename
+
+# rollbacks
+kubectl rollout history deployment/name
+kubectl rollout undo    deployment/name
+kubectl rollout undo    deployment/name --to-revision=3
 ```
 </details>
 
@@ -278,13 +284,6 @@ Not the only way but one of the common way:
 
 ### Ingress default backend
 When page is not found will call it.
-
-## Rollback pods
-```sh
-kubectl rollout history deployment/name
-kubectl rollout undo    deployment/name
-kubectl rollout undo    deployment/name --to-revision=3
-```
 
 ## Others
 <details><summary>Minikube</summary>

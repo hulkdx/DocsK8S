@@ -243,9 +243,10 @@ spec:
 
 </details>
 
-## [01 - Example](k8s-examples/01-01-example/README.md)
+[01-example](k8s-examples/01-01-example/README.md)
 
-## Ingress
+<details><summary>Ingress</summary>
+
 You want to have my-app.com website and not IP:PORT. 
 So you change your external service into internal and then use ingress. and ingress will redirect to that internal service.
 
@@ -280,10 +281,12 @@ Not the only way but one of the common way:
 1. Redirect to Ingress controller
 1. Ingress rule needs to be defined
 
-### [Example Ingress](k8s-examples/01-02-example-ingress/README.md)
+[01-02-ingress-example](k8s-examples/01-02-example-ingress/README.md)
 
 ### Ingress default backend
 When page is not found will call it.
+
+</details>
 
 ## Others
 <details><summary>Minikube</summary>

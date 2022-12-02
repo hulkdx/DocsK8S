@@ -107,8 +107,6 @@ detects a crash, etc from pods and tries to recover the pod
 #### etcd
 a storage for k8s itself 
 
-## Tools
-
 <details><summary>kubectl commands</summary>
 
 - [cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
@@ -140,8 +138,6 @@ kubectl rollout undo    deployment/name
 kubectl rollout undo    deployment/name --to-revision=3
 ```
 </details>
-
-### Config file
 
 <details><summary>Deployment</summary>
 
@@ -198,12 +194,14 @@ spec:
 
 </details>
 
-#### label and selection explanation of example above:
+<details><summary>label and selection explanation of example above</summary>
+
 - (3): A pod has a label `app: nginx` (it can be any other key-value pair), 
 - (2): Create a connection between deployment (2) and pod (3) 
 - (1): This is the deployment label and will be used by the service selector (4) 
 - (4): connect to the deployment (1) also to the pod (3)  
 
+</details>
 <details><summary>Secret</summary>
 
 ```yaml
@@ -288,7 +286,6 @@ When page is not found will call it.
 
 </details>
 
-## Others
 <details><summary>Minikube</summary>
 
 - To test k8s on local machine 

@@ -268,6 +268,25 @@ spec:
     effect: NoSchedule
 ```
 execute command `kubectl exec aws-cli -- aws s3api list-buckets` should work.
+### worker node's security group
+```terraform
+resource "aws_eks_node_group" "NAME" {
+  ...
+  launch_template {
+    name = aws_launch_template.node_group.name
+    version = aws_launch_template.node_group.latest_version
+  }
+}
+resource "aws_launch_template" "NAME" {
+  vpc_security_group_ids = [
+    aws_eks_cluster.NAME.vpc_config[0].cluster_security_group_id,
+    aws_security_group.NAME.id,
+  ]
+}
+resource "aws_security_group" "NAME" {
+  vpc_id = aws_vpc.NAME.id
+}
+```
 
 # kubectl
 ```sh

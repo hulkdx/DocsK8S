@@ -434,5 +434,5 @@ resources:
 
 # Future research
 - Why is good practice to limit resources?
-- What is Kustomize
-
+- Kustomize
+- ArgoCD

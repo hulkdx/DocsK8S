@@ -292,3 +292,7 @@ resource "aws_security_group" "NAME" {
 ```sh
 aws eks --region us-east-1 update-kubeconfig --name demo
 ```
+
+# blueprints
+[aws eks blueprints](https://github.com/aws-ia/terraform-aws-eks-blueprints) is a good terraform module for creating all of eks resources with few lines of code.
+that project has many good examples under example directory.

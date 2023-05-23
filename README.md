@@ -279,6 +279,10 @@ It evaluates all the rules then manages the redirections.
 
 You can choose between many third-party application for Ingress Controller. `K8s Nginx Ingress Controller` is from kubernetes itself. It depends on the cloud service provide. 
 
+#### Ingress-Nginx Controller by kubernetes
+
+- https://github.com/kubernetes/ingress-nginx
+
 ### Ingress in cloud service:
 
 Not the only way but one of the common way: 

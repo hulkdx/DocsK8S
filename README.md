@@ -261,9 +261,13 @@ spec:
   - host: myapp.com
     http:
       paths:
+      - pathType: Prefix
+        path: "/auth"
         backend:
-          serviceName: myapp-internal-service
-          servicePort: 8080
+          service:
+            name: user-service
+            port: 
+              number: 8080
 ```
 
 The yaml file alone won't be enough and it needs ingress controller

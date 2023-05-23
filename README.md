@@ -107,6 +107,7 @@ detects a crash, etc from pods and tries to recover the pod
 #### etcd
 a storage for k8s itself 
 
+## kubectl commands
 <details><summary>kubectl commands</summary>
 
 - [cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
@@ -138,6 +139,8 @@ kubectl rollout undo    deployment/name
 kubectl rollout undo    deployment/name --to-revision=3
 ```
 </details>
+
+## Examples
 
 <details><summary>Deployment</summary>
 
